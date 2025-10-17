@@ -5,9 +5,9 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.Test;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 class MobileBankApiTestV6 {
     private final RequestSpecification requestSpec = new RequestSpecBuilder()
@@ -24,12 +24,16 @@ class MobileBankApiTestV6 {
         // Given - When - Then
         // Предусловия
         given()
-                .spec(requestSpec) // со спецификацией проще (особенно когда много тестов)
+                // код теста
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("accounts.schema.json"));
+                requestSpec.spec(requestSpec) // со спецификацией проще (особенно когда много тестов)
                 // Выполняемые действия
                 .when()
                 .get("/demo/accounts")
                 // Проверки
-                import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+                .then()
                 .statusCode(200);
     }
 }
