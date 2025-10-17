@@ -24,16 +24,14 @@ class MobileBankApiTestV6 {
         // Given - When - Then
         // Предусловия
         given()
+                .spec(requestSpec) // ← ПЕРЕМЕСТИТЬ СЮДА!
                 // код теста
-                .then()
-                .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("accounts.schema.json"));
-                requestSpec.spec(requestSpec) // со спецификацией проще (особенно когда много тестов)
                 // Выполняемые действия
                 .when()
                 .get("/demo/accounts")
                 // Проверки
                 .then()
-                .statusCode(200);
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("accounts.schema.json"));
     }
 }
